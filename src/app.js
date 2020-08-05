@@ -1,6 +1,6 @@
 const express = require('express')
 
-//const Router = require('./routes/user/user-router')
+const UserRouter = require('./routes/user/user-router')
 
 require('dotenv').config()
 
@@ -18,6 +18,6 @@ app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
 
-//app.use('/api',Router)
+app.use('/api',UserRouter)
 
 module.exports = app
