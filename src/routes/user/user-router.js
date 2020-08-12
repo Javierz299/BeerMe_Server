@@ -29,9 +29,9 @@ UserRouter
 })
 
 UserRouter
-    .get('/get/userprofile/:email', jsonBodyParser, async (req,res,next) => {
-        const { email } = req.param
-        console.log('req param',email)
+    .get('/get/userprofile/:email', jsonBodyParser, (req,res,next) => {
+        const { email } = req.params
+        console.log('req params',email)
 
     //    await UserService.getUserProfile(req.app.get('db'),email)
     //         .then(result => {
