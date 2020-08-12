@@ -29,20 +29,20 @@ UserRouter
 })
 
 UserRouter
-    .get('/get/userprofile/:email', jsonBodyParser, (req,res,next) => {
+    .get('/get/userprofile/:email', jsonBodyParser, async (req,res,next) => {
         const { email } = req.params
         console.log('req params',email)
 
-    //    await UserService.getUserProfile(req.app.get('db'),email)
-    //         .then(result => {
-    //             if(!result){
-    //                 console.log('no result??')
-    //                 res.status(404).send({
-    //                     error: 'user not found'
-    //                 })
-    //             }
-    //             res.json(result)
-    //         })
+       await UserService.getUserProfile(req.app.get('db'),email)
+            .then(result => {
+                if(!result){
+                    console.log('no result??')
+                    res.status(404).send({
+                        error: 'user not found'
+                    })
+                }
+                res.json(result)
+            })
 
     })
 

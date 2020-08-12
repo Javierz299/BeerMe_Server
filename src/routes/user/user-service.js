@@ -5,11 +5,13 @@ const UserService = {
         console.log(newUser.email)
         let value = await db.select('email').from('user').where('email',newUser.email)
         console.log('value',value)
-        let emailValue = await value[0].email
-        if(value == []){
+        let emailValue;
+        if(value.length > 0){
+            emailValue = await value[0].email
+        } else {
             console.log('empty array/no user with that email')
-            return []
-        } 
+        }
+       
 
         if(newUser.email !== emailValue || newUser.email == null || newUser.email == undefined){
             console.log('add new user')
