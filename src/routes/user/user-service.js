@@ -41,6 +41,7 @@ const UserService = {
             .select('*')
             .from('user')
             .where('email',email)
+            .first()
     },
 
 }
