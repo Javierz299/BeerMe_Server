@@ -4,9 +4,9 @@ CREATE TABLE "drink" (
     "wine" INT,
     "shots" INT,
     "cocktail" INT,
-    "date" TIMESTAMP
+    "date" DATE
 );
-
+-- DATE - format YYYY-MM-DD
 
 
 

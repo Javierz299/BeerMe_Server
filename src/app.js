@@ -1,6 +1,7 @@
 const express = require('express')
 
 const UserRouter = require('./routes/user/user-router')
+const DrinkRouter = require('../src/routes/user/drink-router')
 
 require('dotenv').config()
 
@@ -19,5 +20,6 @@ app.use(helmet())
 app.use(cors())
 
 app.use('/api',UserRouter)
+app.use('/api',DrinkRouter)
 
 module.exports = app
