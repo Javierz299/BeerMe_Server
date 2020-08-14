@@ -7,6 +7,7 @@ const jsonBodyParser = express.json()
 
 DrinkRouter
     .post('/post/userdrink',jsonBodyParser, (req,res,next) => {
+        console.log("drink post req",req.body)
         const { user_id, beer, wine, shots, cocktail, date } = req.body
 
         const beerMe = {

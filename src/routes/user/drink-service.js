@@ -12,6 +12,7 @@ const DrinkService = {
 
     serializeDrink(drink){
         return {
+            user_id: drink.user_id,
             beer: drink.beer,
             wine: drink.wine,
             shots: drink.shots,
