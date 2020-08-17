@@ -1,6 +1,7 @@
 const express = requires = require('express')
 
 const DrinkService = require('./drink-service')
+const config = require('../../config')
 
 const DrinkRouter = express.Router()
 const jsonBodyParser = express.json()
@@ -40,14 +41,25 @@ DrinkRouter
             id
             )
             .then(result => {
-                if(!result){
-                    console.log('no result??')
-                    res.status(404).send({
-                        error: 'drinks not found'
-                    })
-                }
+                console.log(result)
+                // if(!result){
+                //     console.log('no result??')
+                //     res.status(404).send({
+                //         error: 'drinks not found'
+                //     })
+                //}
                 res.json(result)
             })
+    })
+
+DrinkRouter
+    .patch('/patch/userdrink/:id',jsonBodyParser, (req,res,next) => {
+        const { id } = req.params
+        const { beer, wine, shots, cocktail } = req.body
+
+        const patchDrink = { beer, wine, shots, cocktail}
+        console.log('id',id)
+        console.log('patchDrink',patchDrink)
     })
 
 
