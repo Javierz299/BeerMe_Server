@@ -58,8 +58,28 @@ DrinkRouter
         const { beer, wine, shots, cocktail } = req.body
 
         const patchDrink = { beer, wine, shots, cocktail}
+        let keysAndValues = Object.entries(patchDrink)
+        // if(beer.beer !== undefined){
+
+        let validDrink = {
+            user_id: id
+        }
+
         console.log('id',id)
-        console.log('patchDrink',patchDrink)
+        console.log('patchDrink',keysAndValues)
+        keysAndValues.forEach((ele,i) => {
+            let num = ele[1]
+           console.log('nums',num)
+           let type = typeof num
+           console.log('type',type)
+           if(type === 'number'){
+            validDrink[ele[0]] = num
+           } else {
+               console.log('undefinded')
+           }
+        })
+        
+        console.log('validDrink',validDrink)
     })
 
 

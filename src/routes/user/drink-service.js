@@ -57,6 +57,7 @@ const DrinkService = {
     return result 
     },
     patchUserDrink(db,id,userDrink){
+        console.log('patch serivce',id,userDrink)
         return db
             .select('drink')
             .where({id})
