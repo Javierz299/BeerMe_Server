@@ -1,3 +1,6 @@
+const { kMaxLength } = require("buffer");
+const { read } = require("fs");
+
 const DrinkService = {
     async insertDrink(db,drink){
         console.log('drink',drink)
@@ -56,12 +59,32 @@ const DrinkService = {
       }
     return result 
     },
-    patchUserDrink(db,id,userDrink){
+    async patchUserDrink(db,id,userDrink){
         console.log('patch serivce',id,userDrink)
-        return db
-            .select('drink')
-            .where({id})
-            .update(userDrink)
+
+        let result = await db.select('*').from('drink').where('user_id',id)
+
+        let resultObj = result[0]
+        console.log('obj',resultObj)
+    
+
+        let updateDrink = {}
+       
+        for(let prop in userDrink){
+            console.log('prop',prop,userDrink[prop])
+            if(resultObj.hasOwnProperty(prop)){
+                console.log('match',prop)
+                console.log('typeof',typeof prop, typeof userDrink[prop])
+                updateDrink[prop] = (resultObj[prop] + userDrink[prop])
+            }
+        }
+       console.log('update',updateDrink)
+        return await db
+        .select('*')
+        .from('drink')
+        .where('user_id',id)
+        .update(updateDrink)
+       
     },
 
 }

@@ -59,11 +59,9 @@ DrinkRouter
 
         const patchDrink = { beer, wine, shots, cocktail}
         let keysAndValues = Object.entries(patchDrink)
-        // if(beer.beer !== undefined){
-
-        let validDrink = {
-            user_id: id
-        }
+        //possible values of being undefined. so filter
+        //through and make object with valid values
+        let validDrink = {}
 
         console.log('id',id)
         console.log('patchDrink',keysAndValues)
@@ -78,8 +76,19 @@ DrinkRouter
                console.log('undefinded')
            }
         })
-        
         console.log('validDrink',validDrink)
+
+        DrinkService.patchUserDrink(
+            req.app.get('db'),
+            req.params.id,
+            validDrink
+        )
+        .then(numRowsAffected => {
+            res.status(204).end()
+        })
+        // .catch(next)
+        
+        
     })
 
 
