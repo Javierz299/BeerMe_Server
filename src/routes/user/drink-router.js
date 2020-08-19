@@ -1,7 +1,6 @@
 const express = requires = require('express')
 
 const DrinkService = require('./drink-service')
-const config = require('../../config')
 
 const DrinkRouter = express.Router()
 const jsonBodyParser = express.json()
