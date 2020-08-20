@@ -1,8 +1,6 @@
 
 const FriendService = {
-    // when sending a request need to check if user even exists
-    //if they do, then post. if not do nothing. client will handle
-    // empty data if cant finduser/doesnt exists
+    //when sending friend request check if request already exists
    async insertFriendReq(db,request){
         console.log(request)
              //searching if email exists
@@ -40,7 +38,29 @@ const FriendService = {
             accepted: req.boolean,
             declined: req.boolean
         }
-    }
+    },
+    async getFriendId(db,email){
+        //check if friend exists
+        //send back id if friend exists
+        let value = await db.select('id').from('user').where('email',email.email)
+        let friendId;
+        console.log('getfriendid',value)
+
+        if(value.length > 0){
+            friendId = await value[0].id
+        } else {
+            console.log('no user by that email exists')
+        }
+        if(!friendId){
+            return {error: 'no friend id'}
+        }
+        
+        return db
+            .select('id')
+            .from('user')
+            .where('id',friendId)
+            .first()
+    },
 
 
 }
