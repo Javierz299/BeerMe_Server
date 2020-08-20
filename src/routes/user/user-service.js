@@ -2,10 +2,8 @@
 
 const UserService = {
     async insertUser(db,newUser){
-        console.log(newUser.email)
         //check db if email exits
         let value = await db.select('email').from('user').where('email',newUser.email)
-        console.log('value',value)
         let emailValue;
         //if value contains ele in arr then grab email if not log()
         if(value.length > 0){
@@ -39,7 +37,6 @@ const UserService = {
     },
 
     getUserProfile(db,email){
-        console.log('get user email',email)
         return db 
             .select('*')
             .from('user')
