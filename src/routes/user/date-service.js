@@ -1,6 +1,8 @@
+const { use } = require("./user-router")
+const { contentSecurityPolicy } = require("helmet")
 
 const DateService = {
-    async insertDate(db,date){
+    insertDate(db,date){
         console.log(date)
 
         return db
@@ -14,6 +16,17 @@ const DateService = {
             user_id: date.user_id,
             date: date.date,
         }
+    },
+   async getLastEntry(db,userId){
+        console.log('last ',userId)
+        let entries =  await db
+            .select('date')
+            .from('date')
+            .where('user_id',userId)
+            //.then(res => res[res.length - 1])
+        console.log('dates',entries)
+        console.log('last',entries[entries.length - 1])
+        return entries[entries.length - 1]
     }
 }
 

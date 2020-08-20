@@ -40,13 +40,7 @@ DrinkRouter
             id
             )
             .then(result => {
-                console.log(result)
-                // if(!result){
-                //     console.log('no result??')
-                //     res.status(404).send({
-                //         error: 'drinks not found'
-                //     })
-                //}
+                console.log("result",result)
                 res.json(result)
             })
     })

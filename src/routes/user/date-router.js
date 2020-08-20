@@ -28,4 +28,18 @@ DateRouter
         next()
     })
 
+    DateRouter
+        .get('/get/lastestentry/:id',jsonBodyParser, async(req,res,next)=> {
+            const { id } = req.params
+            console.log('last id',id)
+            await DateService.getLastEntry(
+                req.app.get('db'),
+                id
+            )
+            .then(result => {
+                res.json(result)
+            })
+            
+        })
+
     module.exports = DateRouter
