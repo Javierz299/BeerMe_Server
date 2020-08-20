@@ -1,4 +1,9 @@
-
+CREATE TABLE "friend"(
+    "user_id" INTEGER REFERENCES "user"(id) ON DELETE CASCADE,
+    "sent_request_to" INTEGER REFERENCES "user"(id) ON DELETE CASCADE,
+    "accepted" BOOLEAN,
+    "declined" BOOLEAN
+);
 
 
 
