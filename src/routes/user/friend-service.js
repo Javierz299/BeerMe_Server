@@ -5,6 +5,7 @@ const FriendService = {
         console.log(request)
              //searching through db to see if request already exists
         let value = await db.select('id').from('friend').where('id',request.id)
+            console.log('value',value)
        
 
       
@@ -21,7 +22,8 @@ const FriendService = {
     async getFriendId(db,email){
         //check if friend exists
         //send back id if friend exists
-        let value = await db.select('id').from('user').where('email',email.email)
+        console.log('email',email)
+        let value = await db.select('id').from('user').where('email',email)
         let friendId;
         console.log('getfriendid',value)
 

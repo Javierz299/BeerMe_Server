@@ -3,15 +3,17 @@ const express = require('express')
 const FriendService = require('./friend-service')
 
 const FriendRouter = express.Router()
-const jsonBodyParser = expresss.json()
+const jsonBodyParser = express.json()
 
 FriendRouter
     .post('/post/friendrequest/:id',jsonBodyParser, (req,res,next) => {
+        //id is user id making the request
         const { id } = req.params
-        const { user_id, friend_id, accepted, declined } = req.body
+        //should already have the friend id
+        const { friend_id, accepted, declined } = req.body
 
         const newRequest = {
-            user_id,
+            user_id: id,
             sent_request_to: friend_id,
             accepted,
             declined
@@ -19,7 +21,7 @@ FriendRouter
         console.log('newRequest', newRequest)
         const userRequest = FriendService.insertFriendReq(
             req.app.get('db'),
-            userRequest
+            newRequest
         )
         res.status(201)
             .json(FriendService.serializeRequset(userRequest))
@@ -29,10 +31,10 @@ FriendRouter
     })
 
 FriendRouter
-    .get('/get/friendid',jsonBodyParser, async (req,res,next) => {
-        { email } req.body
+    .get('/get/friendid/:email',jsonBodyParser, async (req,res,next) => {
+        const { email } = req.params
         console.log('friend email',email)
-        //friends id by checking if he exists by email
+        //get riends id by checking if he exists by email
         await FriendService.getFriendId(
             req.app.get('db'),
             email,
@@ -44,7 +46,7 @@ FriendRouter
                     error: 'user not found'
                 })
             }
-            //send back friend id if found - use this id to then post
+           //send back friend id if found - use this id to then post
             res.json(result)
         })
 
