@@ -4,10 +4,31 @@ const FriendService = {
    async insertFriendReq(db,request){
         console.log("insert request",request)
              //searching through db to see if request already exists
-        let value = await db.select('user_id').from('friend').where('user_id',request.user_id)
+        let value = await db.select('*').from('friend').where('user_id',request.user_id)
             console.log('db value',value)
        
+        let requestId;
 
+            if(value.length > 0){
+                requestId = await value
+            } else {
+                console.log('empty array/no request with id')
+            }
+            console.log('db data',requestId)
+            // if(request.user_id !== requestId || request.user_id == null || request.user_id == undefined){
+            //     console.log('add new request')
+            //     return db
+            //     .insert(request)
+            //     .into('friend')
+            //     .returning('*')
+            //     .then(([request]) => request)
+            // } else {
+            //     console.log('request already exists')
+            //     return db
+            //         .select('*')
+            //         .from('friend')
+            //         .where('user_id',request.user_id)
+            // }
       
 
     },
