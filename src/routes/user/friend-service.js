@@ -2,21 +2,20 @@
 const FriendService = {
     //when sending friend request check if request already exists
    async insertFriendReq(db,request){
-        console.log(request)
+        console.log("insert request",request)
              //searching through db to see if request already exists
-        let value = await db.select('id').from('friend').where('id',request.id)
-            console.log('value',value)
+        let value = await db.select('user_id').from('friend').where('user_id',request.user_id)
+            console.log('db value',value)
        
 
       
 
     },
     serializeRequset(req){
+        console.log('request',req)
         return {
-            user_id: req.id,
-            sent_request_to: req.friendId,
-            accepted: req.boolean,
-            declined: req.boolean
+            user_id: req.user_id,
+            sent_request_to: req.sent_request_to,
         }
     },
     async getFriendId(db,email){
@@ -25,7 +24,6 @@ const FriendService = {
         console.log('email',email)
         let value = await db.select('id').from('user').where('email',email)
         let friendId;
-        console.log('getfriendid',value)
 
         if(value.length > 0){
             friendId = await value[0].id
@@ -37,7 +35,7 @@ const FriendService = {
         }
 
         return db
-            .select('id')
+            .select('*')
             .from('user')
             .where('id',friendId)
             .first()
