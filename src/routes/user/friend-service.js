@@ -6,8 +6,29 @@ const FriendService = {
              //searching through db to see if request already exists
         let value = await db.select('*').from('friend').where('user_id',request.user_id)
             console.log('db value',value)
-       
+
         let requestId;
+
+        if(value.length > 0){
+            value.filter(item => {
+                if(item.user_id === request.user_id && 
+                    item.sent_request_to !== request.sent_request_to){
+                        console.log('add new request as long as its not to the same perosn')
+                        return db
+                        .insert(request)
+                        .into('friend')
+                        .returning('*')
+                        .then(([request]) => request)
+                } else if(item.user_id === request.user_id && 
+                    item.sent_request_to === request.sent_request_to){
+                    console.log(`request to ${request.sent_request_to} already exists`)
+                    return db
+                    .select('*')
+                    .from('friend')
+                    .where('user_id',request.user_id)
+                }
+            })
+        }
 
             if(value.length > 0){
                 requestId = await value
@@ -16,21 +37,14 @@ const FriendService = {
             }
             //console.log('db data',requestId[0].user_id)
            
-            if(!requestId || request.user_id === undefined){
+            if(!requestId){
                 console.log('add new request')
                 return db
                 .insert(request)
                 .into('friend')
                 .returning('*')
                 .then(([request]) => request)
-            } else {
-                console.log('request already exists')
-                return db
-                    .select('*')
-                    .from('friend')
-                    .where('user_id',request.user_id)
             }
-      
 
     },
     serializeRequset(req){
