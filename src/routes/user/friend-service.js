@@ -14,21 +14,22 @@ const FriendService = {
             } else {
                 console.log('empty array/no request with id')
             }
-            console.log('db data',requestId)
-            // if(request.user_id !== requestId || request.user_id == null || request.user_id == undefined){
-            //     console.log('add new request')
-            //     return db
-            //     .insert(request)
-            //     .into('friend')
-            //     .returning('*')
-            //     .then(([request]) => request)
-            // } else {
-            //     console.log('request already exists')
-            //     return db
-            //         .select('*')
-            //         .from('friend')
-            //         .where('user_id',request.user_id)
-            // }
+            //console.log('db data',requestId[0].user_id)
+           
+            if(!requestId || request.user_id === undefined){
+                console.log('add new request')
+                return db
+                .insert(request)
+                .into('friend')
+                .returning('*')
+                .then(([request]) => request)
+            } else {
+                console.log('request already exists')
+                return db
+                    .select('*')
+                    .from('friend')
+                    .where('user_id',request.user_id)
+            }
       
 
     },
