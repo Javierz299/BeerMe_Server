@@ -9,6 +9,8 @@ const FriendService = {
 
         let requestId;
 
+        //if their are multiple friend requests from a user then filter out ids
+        // to allow new friend requests if not already made to specific user
         if(value.length > 0){
             value.filter(item => {
                 if(item.user_id === request.user_id && 
@@ -35,8 +37,8 @@ const FriendService = {
             } else {
                 console.log('empty array/no request with id')
             }
-            //console.log('db data',requestId[0].user_id)
            
+            //if request id is empty/undfined then no initial friend request has been made
             if(!requestId){
                 console.log('add new request')
                 return db
