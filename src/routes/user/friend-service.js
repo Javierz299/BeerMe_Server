@@ -78,13 +78,19 @@ const FriendService = {
             .where('id',friendId)
             .first()
     },
-    getRequests(db,id){
-        return db
-            .select('*')
-            .from('friend')
-            .where('sent_request_to',id)
+   async getRequests(db,id){
+    let value = await db.select('*').from('friend').where('sent_request_to',id)
+    console.log('value',value)
 
+    if(value.length > 0){
+       return value.filter(item => item.accepted === null && item.declined === null)
     }
+
+    if(value.length === 0){
+        return {message: 'no pending requests'}
+    }
+    
+    },
 
 
 }

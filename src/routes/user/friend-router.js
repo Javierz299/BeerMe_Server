@@ -20,10 +20,10 @@ FriendRouter
             req.app.get('db'),
             newRequest
         )
-        // res.status(201)
-        //     .json(FriendService.serializeRequset(userRequest))
+        res.status(201)
+            .json(FriendService.serializeRequset(userRequest))
 
-        //     next()
+            next()
     })
 
 FriendRouter
@@ -55,8 +55,11 @@ FriendRouter
             id,
         )
         .then(result => {
+            console.log('result from friend request',result)
             if(!result){
-                return {message: 'no pending requests'}
+                res.status(404).send({
+                    error: 'something went wrong getting friend requests'
+                })
             }
             res.json(result)
         })
