@@ -78,6 +78,13 @@ const FriendService = {
             .where('id',friendId)
             .first()
     },
+    getRequests(db,id){
+        return db
+            .select('*')
+            .from('friend')
+            .where('sent_request_to',id)
+
+    }
 
 
 }

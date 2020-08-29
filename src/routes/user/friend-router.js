@@ -47,6 +47,21 @@ FriendRouter
         })
 
     })
+FriendRouter
+    .get('/get/friendrequests/:id',jsonBodyParser, async (req,res,next) => {
+        const { id } = req.params
+        await FriendService.getRequests(
+            req.app.get('db'),
+            id,
+        )
+        .then(result => {
+            if(!result){
+                return {message: 'no pending requests'}
+            }
+            res.json(result)
+        })
+        
+    })
 
 
 module.exports = FriendRouter
