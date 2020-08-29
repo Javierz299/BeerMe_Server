@@ -81,7 +81,9 @@ const FriendService = {
    async getRequests(db,id){
     let value = await db.select('*').from('friend').where('sent_request_to',id)
     console.log('value',value)
-
+//.join('contacts', {'users.id': 'contacts.id'})
+    let join = await db.from('user').select('username').join('friend', {'user.id': 'friend.user_id'}).where('id',id)
+    console.log('join',join)
     if(value.length > 0){
        return value.filter(item => item.accepted === null && item.declined === null)
     }
