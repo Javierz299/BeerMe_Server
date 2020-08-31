@@ -66,5 +66,23 @@ FriendRouter
         
     })
 
+FriendRouter
+    .get('/get/pendingrequests/:id',jsonBodyParser, async (req,res,next) => {
+        const { id } = req.params
+
+        await FriendService.getPendingUsernames(
+            req.app.get('db'),
+            id
+        )
+        .then(result => {
+            if(!result){
+                res.status(404).send({
+                    error: 'something went wrong getting pending requests'
+                })
+            }
+            res.json(result)
+        })
+    })
+
 
 module.exports = FriendRouter

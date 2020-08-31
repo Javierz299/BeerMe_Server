@@ -81,17 +81,30 @@ const FriendService = {
    async getRequests(db,id){
     let value = await db.select('*').from('friend').where('sent_request_to',id)
     console.log('value',value)
-//.join('contacts', {'users.id': 'contacts.id'})
-    let join = await db.from('user').select('username').join('friend', {'user.id': 'friend.user_id'}).where('id',id)
-    console.log('join',join)
+    
+    //let pending = await value.map(item => item.user_id)
     if(value.length > 0){
-       return value.filter(item => item.accepted === null && item.declined === null)
+    let filtered = value.filter(item => item.accepted === null && item.declined === null)
+    let names = []
+
+        for(let i = 0; i < filtered.length; i++){
+            await db.select('username').from('user').where('id',filtered[i].user_id)
+                .then(pending => names.push(pending))
+        }
+        console.log('names',names)
+        return names
     }
 
     if(value.length === 0){
         return {message: 'no pending requests'}
     }
     
+    },
+    getPendingUsernames(db,id){
+        return db
+            .select('username')
+            .from('user')
+            .where('id',id)
     },
 
 
