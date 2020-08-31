@@ -82,14 +82,13 @@ const FriendService = {
     let value = await db.select('*').from('friend').where('sent_request_to',id)
     console.log('value',value)
     
-    //let pending = await value.map(item => item.user_id)
     if(value.length > 0){
     let filtered = value.filter(item => item.accepted === null && item.declined === null)
     let names = []
 
         for(let i = 0; i < filtered.length; i++){
             await db.select('username').from('user').where('id',filtered[i].user_id)
-                .then(pending => names.push(pending))
+                .then(pending => names.push([...pending,filtered[i].user_id]))
         }
         console.log('names',names)
         return names
@@ -100,11 +99,13 @@ const FriendService = {
     }
     
     },
-    getPendingUsernames(db,id){
-        return db
-            .select('username')
-            .from('user')
-            .where('id',id)
+    patchAcceptRequest(db,id){
+        console.log('db,id,bool',id)
+          return db
+            .select('accepted')
+            .from('friend')
+            .where('user_id',id)
+            .update({'accepted': true})
     },
 
 

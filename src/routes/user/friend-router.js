@@ -65,23 +65,18 @@ FriendRouter
         })
         
     })
-
 FriendRouter
-    .get('/get/pendingrequests/:id',jsonBodyParser, async (req,res,next) => {
+    .patch('/patch/addfriend/:id',jsonBodyParser, (req,res,next) => {
         const { id } = req.params
 
-        await FriendService.getPendingUsernames(
+        FriendService.patchAcceptRequest(
             req.app.get('db'),
-            id
+            parseInt(id),
         )
-        .then(result => {
-            if(!result){
-                res.status(404).send({
-                    error: 'something went wrong getting pending requests'
-                })
-            }
-            res.json(result)
-        })
+       .then(res => console.log('res',res))
+            //res.status(204).end()
+     
+
     })
 
 
