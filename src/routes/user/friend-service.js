@@ -99,12 +99,13 @@ const FriendService = {
     }
     
     },
-    patchAcceptRequest(db,id){
-        console.log('db,id,bool',id)
+    patchAcceptRequest(db,id,updateUser){
+        console.log('db,id,bool',id,updateUser)
           return db
             .select('accepted')
             .from('friend')
             .where('user_id',id)
+            .andWhere('sent_request_to',updateUser)
             .update({'accepted': true})
     },
 
