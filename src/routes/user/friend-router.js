@@ -87,9 +87,23 @@ FriendRouter
             parseInt(id),
             sent_request_to,
         )
-       .then(res => console.log('res',res))
-            res.status(204).end()
+       .then(res => res.status(204).end())
      
+    })
+FriendRouter
+    .get('/get/following/:id',jsonBodyParser,(req,res,next) => {
+        const { id } = req.params
+
+        FriendService.getFollowing(
+            req.app.get('db'),
+            id
+        )
+        .then(result => {
+            if(!result){
+                return {message: 'not following anyone yet'}
+            } 
+            res.json(result)
+        })
     })
 
 

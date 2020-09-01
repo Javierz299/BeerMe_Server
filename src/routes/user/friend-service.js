@@ -117,6 +117,11 @@ const FriendService = {
           .andWhere('sent_request_to',updateUser)
           .update({'declined': true})
     },
+    async getFollowing(db,id){
+        let value = await db.select('*').from('friend').where('user_id',id)
+        console.log('followingvalue',value)
+        return value
+    },
 
 }
 
