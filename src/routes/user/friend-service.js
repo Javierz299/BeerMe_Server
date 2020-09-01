@@ -100,7 +100,7 @@ const FriendService = {
     
     },
     patchAcceptRequest(db,id,updateUser){
-        console.log('db,id,bool',id,updateUser)
+        console.log('accept',id,updateUser)
           return db
             .select('accepted')
             .from('friend')
@@ -108,7 +108,15 @@ const FriendService = {
             .andWhere('sent_request_to',updateUser)
             .update({'accepted': true})
     },
-
+    patchDeclineRequest(db,id,updateUser){
+        console.log('decline',id,updateUser)
+        return db
+          .select('declined')
+          .from('friend')
+          .where('user_id',id)
+          .andWhere('sent_request_to',updateUser)
+          .update({'declined': true})
+    },
 
 }
 

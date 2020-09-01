@@ -77,7 +77,19 @@ FriendRouter
        .then(res => console.log('res',res))
             res.status(204).end()
      
-
+    })
+FriendRouter
+    .patch('/patch/declinefriend/:id',jsonBodyParser, (req,res,next) => {
+        const { id } = req.params
+        const { sent_request_to } = req.body
+        FriendService.patchDeclineRequest(
+            req.app.get('db'),
+            parseInt(id),
+            sent_request_to,
+        )
+       .then(res => console.log('res',res))
+            res.status(204).end()
+     
     })
 
 
