@@ -17,18 +17,23 @@ const FriendService = {
             .returning('*')
             .then(([request]) => request)
     }
-   async function requestExists(istrue){
-        return await istrue.user_id === request.user_id && istrue.sent_request_to === request.sent_request_to
+    function requestExists(istrue){
+        return istrue.user_id === request.user_id && istrue.sent_request_to === request.sent_request_to
     }
 if(value.length > 0){
-    if(await value.find(requestExists)){
-        console.log('request already exists')
+    if(value.find(requestExists)){
         return {message: 'request already exists'}
-    } 
+    } else {
+        console.log('add the request')
+        return db
+        .insert(request)
+        .into('friend')
+        .returning('*')
+        .then(([request]) => request)
+    }
 }
     },
     serializeRequset(req){
-        console.log('request',req)
         return {
             user_id: req.user_id,
             sent_request_to: req.sent_request_to,
