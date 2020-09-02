@@ -1,53 +1,31 @@
+const { contentSecurityPolicy } = require("helmet");
 
 const FriendService = {
     //when sending friend request check if request already exists
-   async insertFriendReq(db,request){
+    async insertFriendReq(db,request){
         console.log("insert request",request)
              //searching through db to see if request already exists
         let value = await db.select('*').from('friend').where('user_id',request.user_id)
             console.log('db value',value)
-
-        let requestId;
-
         //if their are multiple friend requests from a user then filter out ids
         // to allow new friend requests if not already made to specific user
-        if(value.length > 0){
-            value.filter(item => {
-                if(item.user_id === request.user_id && 
-                    item.sent_request_to !== request.sent_request_to){
-                        console.log('add new request as long as its not to the same perosn')
-                        return db
-                        .insert(request)
-                        .into('friend')
-                        .returning('*')
-                        .then(([request]) => request)
-                } else if(item.user_id === request.user_id && 
-                    item.sent_request_to === request.sent_request_to){
-                    console.log(`request to ${request.sent_request_to} already exists`)
-                    return db
-                    .select('*')
-                    .from('friend')
-                    .where('user_id',request.user_id)
-                }
-            })
-        }
-
-            if(value.length > 0){
-                requestId = await value
-            } else {
-                console.log('empty array/no request with id')
-            }
-           
-            //if request id is empty/undfined then no initial friend request has been made
-            if(!requestId){
-                console.log('add new request')
-                return db
-                .insert(request)
-                .into('friend')
-                .returning('*')
-                .then(([request]) => request)
-            }
-
+    if(value.length === 0){
+        console.log("add request")
+        return db
+            .insert(request)
+            .into('friend')
+            .returning('*')
+            .then(([request]) => request)
+    }
+   async function requestExists(istrue){
+        return await istrue.user_id === request.user_id && istrue.sent_request_to === request.sent_request_to
+    }
+if(value.length > 0){
+    if(await value.find(requestExists)){
+        console.log('request already exists')
+        return {message: 'request already exists'}
+    } 
+}
     },
     serializeRequset(req){
         console.log('request',req)
@@ -110,15 +88,18 @@ const FriendService = {
     },
     patchDeclineRequest(db,id,updateUser){
         console.log('decline',id,updateUser)
-        return db
+           db
           .select('declined')
           .from('friend')
           .where('user_id',id)
           .andWhere('sent_request_to',updateUser)
           .update({'declined': true})
+
+        let declined = db.select('declined').from('friend').where('user_id',id).andWhere('sent_request_to',updateUser)
+          console.log('declined',declined)
     },
     async getFollowing(db,id){
-        let friend = await db.select('*').from('friend').where('user_id',id)
+        let friend = await db.select('*').from('friend').where('user_id',id).andWhere({'accepted': true})
 
         console.log('followingvalue',friend)
         let friends = []

@@ -6,7 +6,7 @@ const FriendRouter = express.Router()
 const jsonBodyParser = express.json()
 
 FriendRouter
-    .post('/post/friendrequest/',jsonBodyParser, (req,res,next) => {
+    .post('/post/friendrequest/',jsonBodyParser, async (req,res,next) => {
         //id is user id making the request
         //should already have the friend id
         const { user_id, friend_id } = req.body
@@ -16,10 +16,11 @@ FriendRouter
             sent_request_to: friend_id,
         }
         console.log('newRequest', newRequest)
-        const userRequest = FriendService.insertFriendReq(
+        const userRequest = await FriendService.insertFriendReq(
             req.app.get('db'),
             newRequest
         )
+        console.log('userRequest',userRequest)
         res.status(201)
             .json(FriendService.serializeRequset(userRequest))
 
