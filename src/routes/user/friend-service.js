@@ -91,17 +91,24 @@ if(value.length > 0){
             .andWhere('sent_request_to',updateUser)
             .update({'accepted': true})
     },
-    patchDeclineRequest(db,id,updateUser){
+   async patchDeclineRequest(db,id,updateUser){
         console.log('decline',id,updateUser)
-           db
+          await db
           .select('declined')
           .from('friend')
           .where('user_id',id)
           .andWhere('sent_request_to',updateUser)
           .update({'declined': true})
 
-        let declined = db.select('declined').from('friend').where('user_id',id).andWhere('sent_request_to',updateUser)
+        let declined = await db.select('declined').from('friend').where('user_id',id).andWhere('sent_request_to',updateUser)
           console.log('declined',declined)
+          if(declined[0].declined){
+              return db
+              .from('friend')
+              .where('user_id',id)
+              .andWhere('sent_request_to',updateUser)
+              .delete()
+          }
     },
     async getFollowing(db,id){
         let friend = await db.select('*').from('friend').where('user_id',id).andWhere({'accepted': true})

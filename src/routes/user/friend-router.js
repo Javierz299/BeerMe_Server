@@ -88,7 +88,7 @@ FriendRouter
             parseInt(id),
             sent_request_to,
         )
-       .then(res => res.status(204).end())
+       .then(result => res.status(204).end())
      
     })
 FriendRouter
