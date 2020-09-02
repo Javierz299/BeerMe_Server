@@ -118,10 +118,17 @@ const FriendService = {
           .update({'declined': true})
     },
     async getFollowing(db,id){
-        let value = await db.select('*').from('friend').where('user_id',id)
-        console.log('followingvalue',value)
-        return value
-    },
+        let friend = await db.select('*').from('friend').where('user_id',id)
+
+        console.log('followingvalue',friend)
+        let friends = []
+        for(let i = 0; i < friend.length; i++){
+           let value = await db.select('*').from('user').where('id',friend[i].sent_request_to)
+           friends.push(value)
+        }
+        console.log('friends',friends)
+        return friends
+    }, 
 
 }
 

@@ -18,15 +18,15 @@ const DateService = {
         }
     },
    async getLastEntry(db,userId){
-        console.log('last ',userId)
+        console.log('lastservice ',userId)
         let entries =  await db
             .select('date')
             .from('date')
             .where('user_id',userId)
-            //.then(res => res[res.length - 1])
+            .then(res => res[res.length - 1])
         console.log('dates',entries)
-        console.log('last',entries[entries.length - 1])
-        return entries[entries.length - 1]
+       // console.log('last entry',entries[entries.length - 1])
+        return entries
     }
 }
 
