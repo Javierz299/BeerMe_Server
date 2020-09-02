@@ -25,7 +25,9 @@ const DateService = {
             .where('user_id',userId)
             .then(res => res[res.length - 1])
         console.log('dates',entries)
-       // console.log('last entry',entries[entries.length - 1])
+        if(!entries){
+            return {message: 'no posts yet'}
+        }
         return entries
     }
 }
