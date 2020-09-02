@@ -112,11 +112,11 @@ if(value.length > 0){
     },
     async getFollowing(db,id){
         let friend = await db.select('*').from('friend').where('user_id',id).andWhere({'accepted': true})
-
+        let friendStats = await db.select
         console.log('followingvalue',friend)
         let friends = []
         for(let i = 0; i < friend.length; i++){
-           let value = await db.select('*').from('user').where('id',friend[i].sent_request_to)
+           let value = await db.select('*').from('user').join('drink', {'user.id': 'drink.user_id'}).where('id',friend[i].sent_request_to)
            friends.push(value)
         }
         console.log('friends',friends)
