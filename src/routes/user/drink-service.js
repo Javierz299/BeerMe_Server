@@ -26,13 +26,6 @@ const DrinkService = {
                 .from('drink')
                 .where('user_id',drink.user_id)
         }
-
-        // return db
-        //     .insert(drink)
-        //     .into('drink')
-        //     .returning('*')
-        //     .then(([drink]) => drink)
-
     },
 
     serializeDrink(drink){
@@ -42,7 +35,9 @@ const DrinkService = {
             wine: drink.wine,
             shots: drink.shots,
             cocktail: drink.cocktail,
-            date: drink.date
+            date: drink.date,
+            seltzer: drink.seltzer,
+            craft_beer: drink.craft_beer,
         }
     },
     getUserDrink(db,userId){

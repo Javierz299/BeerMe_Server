@@ -8,15 +8,16 @@ const jsonBodyParser = express.json()
 DrinkRouter
     .post('/post/userdrink',jsonBodyParser, (req,res,next) => {
         console.log("drink post req",req.body)
-        const { user_id, beer, wine, shots, cocktail, date } = req.body
+        const { user_id, beer, 
+                wine, shots, 
+                cocktail, date,
+                seltzer, craft_beer } = req.body
 
         const beerMe = {
-            user_id,
-            beer,
-            wine,
-            shots,
-            cocktail,
-            date,
+            user_id, beer,
+            wine, shots,
+            cocktail, date,
+            seltzer, craft_beer,
         }
          console.log('beerme',beerMe)
         console.log(beerMe)
@@ -48,9 +49,10 @@ DrinkRouter
 DrinkRouter
     .patch('/patch/userdrink/:id',jsonBodyParser, (req,res,next) => {
         const { id } = req.params
-        const { beer, wine, shots, cocktail } = req.body
+        const { beer, wine, shots, cocktail, seltzer, craft_beer } = req.body
 
-        const patchDrink = { beer, wine, shots, cocktail}
+        const patchDrink = { beer, wine, shots, cocktail, seltzer, craft_beer}
+        console.log('patch route',patchDrink)
         let keysAndValues = Object.entries(patchDrink)
         //possible values of being undefined. so filter
         //through and make object with valid values
@@ -58,12 +60,11 @@ DrinkRouter
 
         console.log('id',id)
         console.log('patchDrink',keysAndValues)
-        keysAndValues.forEach((ele,i) => {
+        keysAndValues.forEach((ele) => {
             let num = ele[1]
            console.log('nums',num)
-           let type = typeof num
-           console.log('type',type)
-           if(type === 'number'){
+           if(ele){
+               console.log('num',num)
             validDrink[ele[0]] = num
            } else {
                console.log('undefinded')
