@@ -123,8 +123,18 @@ if(value.length > 0){
         for(let i = 0; i < friend.length; i++){
            let lastEntry = await db.select('*').from('').from('date').where('user_id',friend[i].sent_request_to).orderBy('date', 'desc').limit(1)
            let value = await db.select('*').from('user').join('drink', {'user.id': 'drink.user_id'}).where('id',friend[i].sent_request_to)
+
+           if(!value){
+               return {message: 'no posts'}
+           }
+            
            friends.push(value)
-           last.push(lastEntry)
+           last.push(...lastEntry) 
+    
+           if(friends[i][0].id === last[i].user_id){
+               friends[i][0].last = last[i].date
+           }
+
         }
         console.log('friends',friends)
         console.log("last entry",last)
