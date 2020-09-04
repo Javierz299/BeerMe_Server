@@ -112,11 +112,6 @@ if(value.length > 0){
           }
     },
     async getFollowing(db,id){
-        // select *
-        // from Prices
-        // where product_id = ?
-        // order by updated_at desc 
-        // limit 1
         let friend = await db.select('*').from('friend').where('user_id',id).andWhere({'accepted': true})
         console.log('friend db',friend)
         let friends = []

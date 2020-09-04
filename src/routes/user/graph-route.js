@@ -11,9 +11,7 @@ GraphRouter
         await GraphService.getAllUserData(
             req.app.get('db')
         )
-        // .then(result => {
-        //     console.log('graph data',result)
-        // })
+        .then(result => res.json(result))
 
     })
 
