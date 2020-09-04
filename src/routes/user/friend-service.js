@@ -111,15 +111,23 @@ if(value.length > 0){
           }
     },
     async getFollowing(db,id){
+        // select *
+        // from Prices
+        // where product_id = ?
+        // order by updated_at desc 
+        // limit 1
         let friend = await db.select('*').from('friend').where('user_id',id).andWhere({'accepted': true})
-        
-        console.log('followingvalue',friend)
+        console.log('friend db',friend)
         let friends = []
+        let last = []
         for(let i = 0; i < friend.length; i++){
+           let lastEntry = await db.select('*').from('').from('date').where('user_id',friend[i].sent_request_to).orderBy('date', 'desc').limit(1)
            let value = await db.select('*').from('user').join('drink', {'user.id': 'drink.user_id'}).where('id',friend[i].sent_request_to)
            friends.push(value)
+           last.push(lastEntry)
         }
         console.log('friends',friends)
+        console.log("last entry",last)
         return friends
     }, 
 
