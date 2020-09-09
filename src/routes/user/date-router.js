@@ -31,7 +31,6 @@ DateRouter
     DateRouter
         .get('/get/lastestentry/:id',jsonBodyParser, async(req,res,next)=> {
             const { id } = req.params
-            console.log('last router',id)
             await DateService.getLastEntry(
                 req.app.get('db'),
                 id

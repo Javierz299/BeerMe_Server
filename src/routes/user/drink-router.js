@@ -52,14 +52,14 @@ DrinkRouter
         const { beer, wine, shots, cocktail, seltzer, craft_beer } = req.body
 
         const patchDrink = { beer, wine, shots, cocktail, seltzer, craft_beer}
-        console.log('patch route',patchDrink)
+        //console.log('patch route',patchDrink)
         let keysAndValues = Object.entries(patchDrink)
         //possible values of being undefined. so filter
         //through and make object with valid values
         let validDrink = {}
 
-        console.log('id',id)
-        console.log('patchDrink',keysAndValues)
+        //console.log('id',id)
+        //console.log('patchDrink',keysAndValues)
         keysAndValues.forEach((ele) => {
             let num = ele[1]
            console.log('nums',num)

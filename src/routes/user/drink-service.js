@@ -1,7 +1,6 @@
 
 const DrinkService = {
     async insertDrink(db,drink){
-        console.log('drink',drink)
 
         let value = await db.select('user_id').from('drink').where('user_id',drink.user_id)
         let userId;
@@ -64,10 +63,10 @@ const DrinkService = {
         let updateDrink = {}
        
         for(let prop in userDrink){
-            console.log('prop',prop,userDrink[prop])
+            //console.log('prop',prop,userDrink[prop])
             if(resultObj.hasOwnProperty(prop)){
-                console.log('match',prop)
-                console.log('typeof',typeof prop, typeof userDrink[prop])
+                //console.log('match',prop)
+                //console.log('typeof',typeof prop, typeof userDrink[prop])
                 updateDrink[prop] = (resultObj[prop] + userDrink[prop])
             }
         }
