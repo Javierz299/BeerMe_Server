@@ -1,6 +1,6 @@
 ALTER TABLE "drink"
-ADD COLUMN "seltzer" data_type INT,
-ADD COLUMN "craft_beer" data_type INT;
+ADD COLUMN "seltzer" INT,
+ADD COLUMN "craft_beer" INT;
 
 
 CREATE TABLE "drink" (
