@@ -114,21 +114,22 @@ if(value.length > 0){
         }
         for(let i = 0; i < last.length; i++){
             if(last[i].user_id === friends[i][0].id){
-                let lastPosted = last[i].date.toString().slice(0,10)
-                let timeStamp = last[i].date.toString().slice(16,24)
+                friends[i][0].date = last[i].date
+                // let lastPosted = last[i].date.toString().slice(0,10)
+                // let timeStamp = last[i].date.toString().slice(16,24)
 
-                let dt = lastPosted
-                let t = timeStamp.split(':');
-                let hours = t[0];
-                let minutes = t[1];
-                let timeValue = "" + ((hours >12) ? hours -14 :hours);
-                 timeValue += (minutes < 10) ? ":" + minutes : ":" + minutes;
-                timeValue += (hours >= 12) ? " P.M" : " A.M";
-                timeValue += dt
-                friends[i][0].last = timeValue
+                // let dt = lastPosted
+                // let t = timeStamp.split(':');
+                // let hours = t[0];
+                // let minutes = t[1];
+                // let timeValue = "" + ((hours >12) ? hours -14 :hours);
+                //  timeValue += (minutes < 10) ? ":" + minutes : ":" + minutes;
+                // timeValue += (hours >= 12) ? " P.M" : " A.M";
+                // timeValue += dt
+                // friends[i][0].last = timeValue
             }
         }
-        console.log("friends service last entry",friends,last)
+        console.log("friends service last entry",friends)
         return friends
     }, 
 
