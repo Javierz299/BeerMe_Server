@@ -1,6 +1,8 @@
 CREATE TABLE "drink" (
     "user_id" INTEGER REFERENCES "user"(id) ON DELETE CASCADE,
     "beer" INT,
+    "seltzer" INT,
+    "craft_beer" INT,
     "wine" INT,
     "shots" INT,
     "cocktail" INT,
