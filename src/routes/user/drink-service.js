@@ -12,14 +12,12 @@ const DrinkService = {
         }
 
         if(drink.user_id !== userId || drink.user_id == null || drink.user_id == undefined){
-            console.log('add new drink')
             return db
             .insert(drink)
             .into('drink')
             .returning('*')
             .then(([drink]) => drink)
         } else {
-            console.log('drink already exists')
             return db
                 .select('*')
                 .from('drink')
@@ -52,14 +50,11 @@ const DrinkService = {
     return result 
     },
     async patchUserDrink(db,id,userDrink){
-        console.log('patch serivce',id,userDrink)
 
         let result = await db.select('*').from('drink').where('user_id',id)
 
         let resultObj = result[0]
-        console.log('obj',resultObj)
     
-
         let updateDrink = {}
        
         for(let prop in userDrink){

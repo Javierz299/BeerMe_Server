@@ -13,14 +13,12 @@ const UserService = {
         }
         
         if(newUser.email !== emailValue || newUser.email == null || newUser.email == undefined){
-            console.log('add new user')
             return db
             .insert(newUser)
             .into('user')
             .returning('*')
             .then(([user]) => user)
         } else {
-            console.log('user already exists')
             return db
                 .select('*')
                 .from('user')

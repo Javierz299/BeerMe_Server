@@ -14,13 +14,10 @@ UserRouter
             email,
             email_verified,
         }
-
-        console.log(newUser)
         const user = UserService.insertUser(
             req.app.get('db'),
             newUser
         )
-    
             res.status(201)
             .json(UserService.serializeUser(user))
  
@@ -35,7 +32,6 @@ UserRouter
        await UserService.getUserProfile(req.app.get('db'),email)
             .then(result => {
                 if(!result){
-                    console.log('no result??')
                     res.status(404).send({
                         error: 'user not found'
                     })

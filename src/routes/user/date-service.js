@@ -1,7 +1,5 @@
 const DateService = {
     insertDate(db,date){
-        console.log(date)
-
         return db
             .insert(date)
             .into('date')
@@ -15,22 +13,20 @@ const DateService = {
         }
     },
    async getLastEntry(db,userId){
-        console.log('lastservice ',userId)
         let entries =  await db
             .select('date')
             .from('date')
             .where('user_id',userId)
             .then(res => res[res.length - 1])
-        console.log('dates',entries)
         if(!entries){
             return {message: 'no posts yet'}
         } 
             let lastPosted = entries.date.toString().slice(0,10)
             let timeStamp = entries.date.toString().slice(16,24)
-            let getTime = entries.date.getTime()
-            console.log('getTime',getTime,Date.now())
-            console.log('lastposted',lastPosted)
-            console.log('timestamp',timeStamp)
+            //let getTime = entries.date.getTime()
+            // console.log('getTime',getTime,Date.now())
+            // console.log('lastposted',lastPosted)
+            // console.log('timestamp',timeStamp)
 
 
             let dt = lastPosted
@@ -64,7 +60,7 @@ const DateService = {
                 //       secondsDifference + ' second/s ');
                 // }
            //timeDifference(entries.date,Date.now())
-        console.log("timevalue for date",timeValue)
+        //console.log("timevalue for date",timeValue)
         return timeValue
     }
 }

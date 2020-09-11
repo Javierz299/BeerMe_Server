@@ -10,17 +10,14 @@ FriendRouter
         //id is user id making the request
         //should already have the friend id
         const { user_id, friend_id } = req.body
-        console.log('friend id',friend_id,user_id)
         const newRequest = {
             user_id,
             sent_request_to: friend_id,
         }
-        console.log('newRequest', newRequest)
         const userRequest = await FriendService.insertFriendReq(
             req.app.get('db'),
             newRequest
         )
-        console.log('userRequest',userRequest)
         res.status(201)
             .json(FriendService.serializeRequset(userRequest))
 
@@ -30,8 +27,7 @@ FriendRouter
 FriendRouter
     .get('/get/friendid/:email',jsonBodyParser, async (req,res,next) => {
         const { email } = req.params
-        console.log('friend email',email)
-        //get riends id by checking if he exists by email
+        //get riends id by checking if they exists by email
         await FriendService.getFriendId(
             req.app.get('db'),
             email,
@@ -56,7 +52,6 @@ FriendRouter
             id,
         )
         .then(result => {
-            console.log('result from friend request',result)
             if(!result){
                 res.status(404).send({
                     error: 'something went wrong getting friend requests'

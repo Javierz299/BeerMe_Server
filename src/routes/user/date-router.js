@@ -7,8 +7,8 @@ const jsonBodyParser = express.json()
 
 DateRouter
     .post('/post/drinkdate/:id',jsonBodyParser, (req,res,next) => {
-        console.log("date post",req.body)
-        console.log('id',req.params)
+        // console.log("date post",req.body)
+        // console.log('id',req.params)
         const { id } = req.params
         const { date } = req.body
         console.log('date',date)
