@@ -21,10 +21,10 @@ app.use((error,req,res,next) => {
 const db = knex({
     client:  'pg',
     connection: {
-        host: 'localhost',
-        user: 'postgres',
-        password: 'Tucker15!',
-        database: 'Beer_Me'
+        host: 'ec2-54-158-222-248.compute-1.amazonaws.com',
+        user: 'zhmuaqrwefkroh',
+        password: '5e0f73de7cebce078454a97f9844661bd9c660e53830c904497932216c70e9dd',
+        database: 'd1hjs1gv0g24m2'
     }
 })
 
