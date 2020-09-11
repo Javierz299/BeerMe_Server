@@ -1,3 +1,8 @@
+ALTER TABLE "drink"
+ADD COLUMN "seltzer" data_type INT,
+ADD COLUMN "craft_beer" data_type INT;
+
+
 CREATE TABLE "drink" (
     "user_id" INTEGER REFERENCES "user"(id) ON DELETE CASCADE,
     "beer" INT,
@@ -8,9 +13,9 @@ CREATE TABLE "drink" (
     "cocktail" INT,
     "date" DATE
 );
+
+
 -- DATE - format YYYY-MM-DD
-
-
 
 -- drinks
 -- ----------
