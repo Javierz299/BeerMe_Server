@@ -11,7 +11,6 @@ DateRouter
         // console.log('id',req.params)
         const { id } = req.params
         const { date } = req.body
-        console.log('date',date)
         const postDate = {
             user_id: id,
             date,

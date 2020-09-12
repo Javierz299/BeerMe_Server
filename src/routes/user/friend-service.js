@@ -129,7 +129,6 @@ if(value.length > 0){
                 // friends[i][0].last = timeValue
             }
         }
-        console.log("friends service last entry",friends)
         return friends
     }, 
 
