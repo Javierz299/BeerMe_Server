@@ -4,14 +4,11 @@ const { timeStamp } = require("console");
 const FriendService = {
     //when sending friend request check if request already exists
     async insertFriendReq(db,request){
-        console.log("insert request",request)
              //searching through db to see if request already exists
         let value = await db.select('*').from('friend').where('user_id',request.user_id)
-            console.log('db value',value)
         //if their are multiple friend requests from a user then filter out ids
         // to allow new friend requests if not already made to specific user
     if(value.length === 0){
-        console.log("add request")
         return db
             .insert(request)
             .into('friend')
@@ -25,7 +22,6 @@ if(value.length > 0){
     if(value.find(requestExists)){
         return {message: 'request already exists'}
     } else {
-        console.log('add the request')
         return db
         .insert(request)
         .into('friend')
@@ -43,7 +39,6 @@ if(value.length > 0){
     async getFriendId(db,email){
         //check if friend exists
         //send back id if friend exists
-        console.log('email',email)
         let value = await db.select('id').from('user').where('email',email)
         let friendId;
 
@@ -64,7 +59,6 @@ if(value.length > 0){
     },
    async getRequests(db,id){
     let value = await db.select('*').from('friend').where('sent_request_to',id)
-    console.log('value',value)
     
     if(value.length > 0){
     let filtered = value.filter(item => item.accepted === null && item.declined === null)
@@ -74,7 +68,6 @@ if(value.length > 0){
             await db.select('username').from('user').where('id',filtered[i].user_id)
                 .then(pending => names.push([...pending,filtered[i].user_id]))
         }
-        console.log('names',names)
         return names
     }
 
@@ -84,7 +77,6 @@ if(value.length > 0){
     
     },
     patchAcceptRequest(db,id,updateUser){
-        console.log('accept',id,updateUser)
           return db
             .select('accepted')
             .from('friend')
@@ -93,7 +85,6 @@ if(value.length > 0){
             .update({'accepted': true})
     },
    async patchDeclineRequest(db,id,updateUser){
-        console.log('decline',id,updateUser)
           await db
           .select('declined')
           .from('friend')
@@ -102,7 +93,6 @@ if(value.length > 0){
           .update({'declined': true})
 
         let declined = await db.select('declined').from('friend').where('user_id',id).andWhere('sent_request_to',updateUser)
-          console.log('declined',declined)
           if(declined[0].declined){
               return db
               .from('friend')
@@ -113,22 +103,22 @@ if(value.length > 0){
     },
     async getFollowing(db,id){
         let friend = await db.select('*').from('friend').where('user_id',id).andWhere({'accepted': true})
-        console.log('friend db',friend)
         let friends = []
         let last = []
         for(let i = 0; i < friend.length; i++){
            let lastEntry = await db.select('*').from('').from('date').where('user_id',friend[i].sent_request_to).orderBy('date', 'desc').limit(1)
            let value = await db.select('*').from('user').join('drink', {'user.id': 'drink.user_id'}).where('id',friend[i].sent_request_to)
 
-           friends.push(value)
+           friends.push(...value)
            last.push(...lastEntry)
         }
+         let test = [...friends,...last]
+
+
         for(let i = 0; i < last.length; i++){
             if(last[i].user_id === friends[i][0].id){
                 let lastPosted = last[i].date.toString().slice(0,10)
                 let timeStamp = last[i].date.toString().slice(16,24)
-                console.log('lastposted',lastPosted)
-                console.log('timestamp',timeStamp)
 
                 let dt = lastPosted
                 let t = timeStamp.split(':');
@@ -141,9 +131,7 @@ if(value.length > 0){
                 friends[i][0].last = timeValue
             }
         }
-    
-        console.log('friends',friends)
-        console.log("last entry",last)
+        console.log('TEST',test)
         return friends
     }, 
 
