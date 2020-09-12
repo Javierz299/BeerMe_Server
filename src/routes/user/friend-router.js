@@ -100,7 +100,6 @@ FriendRouter
             id
         )
         .then(result => {
-            console.log("FRIENDS RESULT",result)
             if(!result){
                 return {message: 'not following anyone yet'}
             } 
