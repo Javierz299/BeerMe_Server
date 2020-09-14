@@ -124,7 +124,7 @@ if(value.length > 0){
                 let minutes = t[1];
                 let timeValue = "" + ((hours >12) ? hours -14 :hours);
                  timeValue += (minutes < 10) ? ":" + minutes : ":" + minutes;
-                timeValue += (hours >= 12) ? " P.M" : " A.M";
+                timeValue += (hours >= 12) ? " P.M " : " A.M ";
                 timeValue += dt
                 friends[i][0].last = timeValue
             }
