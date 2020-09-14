@@ -125,15 +125,15 @@ if(value.length > 0){
         }
         for(let i = 0; i < last.length; i++){
             if(last[i].user_id === friends[i][0].id){
-                let lastPosted = last[i].date.toString().slice(0,10)
-                let timeStamp = last[i].date.toString().slice(16,24)
+                let lastPosted = await last[i].date.toString().slice(0,10)
+                let timeStamp = await last[i].date.toString().slice(16,24)
                 console.log('lastposted',lastPosted)
                 console.log('timestamp',timeStamp)
 
-                let dt = lastPosted
-                let t = timeStamp.split(':');
-                let hours = t[0];
-                let minutes = t[1];
+                let dt = await lastPosted
+                let t = await timeStamp.split(':');
+                let hours = await t[0];
+                let minutes = await t[1];
                 let timeValue = "" + ((hours >12) ? hours -14 :hours);
                  timeValue += (minutes < 10) ? ":" + minutes : ":" + minutes;
                 timeValue += (hours >= 12) ? " P.M" : " A.M";
