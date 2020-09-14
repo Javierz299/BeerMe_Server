@@ -109,34 +109,15 @@ if(value.length > 0){
            let lastEntry = await db.select('*').from('').from('date').where('user_id',friend[i].sent_request_to).orderBy('date', 'desc').limit(1)
            let value = await db.select('*').from('user').join('drink', {'user.id': 'drink.user_id'}).where('id',friend[i].sent_request_to)
 
-           
             last.push(...lastEntry)
-           
            friends.push(...value)
-           
         }
         console.log('LAST',last)
-         let test = [friends,last]
+         let data = [friends,last]
 
 
-        // for(let i = 0; i < last.length; i++){
-        //     if(last[i].user_id === friends[i][0].id){
-        //         let lastPosted = last[i].date.toString().slice(0,10)
-        //         let timeStamp = last[i].date.toString().slice(16,24)
-
-        //         let dt = lastPosted
-        //         let t = timeStamp.split(':');
-        //         let hours = t[0];
-        //         let minutes = t[1];
-        //         let timeValue = "" + ((hours >12) ? hours -14 :hours);
-        //          timeValue += (minutes < 10) ? ":" + minutes : ":" + minutes;
-        //         timeValue += (hours >= 12) ? " P.M" : " A.M";
-        //         timeValue += dt
-        //         friends[i][0].last = timeValue
-        //     }
-        // }
-        console.log('TEST',test)
-        return friends
+        console.log('TEST',data)
+        return data
     }, 
 
 }

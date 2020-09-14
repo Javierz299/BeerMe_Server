@@ -34,7 +34,6 @@ const DrinkService = {
             wine: drink.wine,
             shots: drink.shots,
             cocktail: drink.cocktail,
-            date: drink.date,
             seltzer: drink.seltzer,
             craft_beer: drink.craft_beer,
         }

@@ -10,13 +10,12 @@ DrinkRouter
         console.log("drink post req",req.body)
         const { user_id, beer, 
                 wine, shots, 
-                cocktail, date,
-                seltzer, craft_beer } = req.body
+                cocktail, seltzer, craft_beer } = req.body
 
         const beerMe = {
             user_id, beer,
             wine, shots,
-            cocktail, date,
+            cocktail,
             seltzer, craft_beer,
         }
          console.log('beerme',beerMe)
