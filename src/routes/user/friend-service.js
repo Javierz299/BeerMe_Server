@@ -129,8 +129,7 @@ if(value.length > 0){
                 friends[i][0].last = timeValue
             }
         }
-        console.log("LASTENTRY",last)
-        console.log('FRIENDS',friends)
+     
         return friends
     }, 
 

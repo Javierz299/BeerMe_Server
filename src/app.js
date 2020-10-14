@@ -5,6 +5,7 @@ const DrinkRouter = require('../src/routes/user/drink-router')
 const DateRouter = require('./routes/user/date-router')
 const FriendRouter = require('./routes/user/friend-router')
 const GraphRouter = require('./routes/user/graph-route')
+const CheersRouter = require('./routes/user/cheers/cheers-router')
 
 require('dotenv').config()
 
@@ -27,6 +28,7 @@ app.use('/api',DrinkRouter)
 app.use('/api',DateRouter)
 app.use('/api',FriendRouter)
 app.use('/api',GraphRouter)
+app.use('/api',CheersRouter)
 
 
 
