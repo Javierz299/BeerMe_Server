@@ -37,7 +37,14 @@ const CheersService = {
 
         return value;
     },
-
+    deleteCheers(db,cheers){
+        
+        return db
+            .from('cheers')
+            .where('user_id',cheers.user_id)
+            .andWhere('sent_to',cheers.sent_to)
+            .delete()
+    },
 
 
 };

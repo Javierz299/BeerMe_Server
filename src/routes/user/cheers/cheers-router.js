@@ -42,4 +42,22 @@ CheersRouter
         
     });
 
+CheersRouter
+    .delete('/delete/cheers', bodyParser, (req,res,next) => {
+        const { user_id, sent_to } = req.body
+
+        const cheers = {
+            user_id: user_id,
+            sent_to: sent_to,
+        }
+
+        CheersService.deleteCheers(
+            req.app.get('db'),
+            cheers
+            )
+            .then(res => console.log('res',res))
+
+
+    });
+
     module.exports = CheersRouter;
