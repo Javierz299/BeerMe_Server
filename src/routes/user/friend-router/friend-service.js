@@ -84,7 +84,6 @@ if(value.length > 0){
     
     },
     patchAcceptRequest(db,id,updateUser){
-        console.log('accept',id,updateUser)
           return db
             .select('accepted')
             .from('friend')
@@ -93,7 +92,6 @@ if(value.length > 0){
             .update({'accepted': true})
     },
    async patchDeclineRequest(db,id,updateUser){
-        console.log('decline',id,updateUser)
           await db
           .select('declined')
           .from('friend')
@@ -127,8 +125,6 @@ if(value.length > 0){
             if(last[i].user_id === friends[i][0].id){
                 let lastPosted = await last[i].date.toString().slice(0,10)
                 let timeStamp = await last[i].date.toString().slice(16,24)
-                console.log('lastposted',lastPosted)
-                console.log('timestamp',timeStamp)
 
                 let dt = await lastPosted
                 let t = await timeStamp.split(':');
@@ -141,9 +137,6 @@ if(value.length > 0){
                 friends[i][0].last = timeValue
             }
         }
-    
-        console.log('friends',friends)
-        console.log("last entry",last)
         return friends
     }, 
 
