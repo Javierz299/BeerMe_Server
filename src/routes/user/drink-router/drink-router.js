@@ -48,7 +48,6 @@ DrinkRouter
 
 DrinkRouter
     .patch('/patch/userdrink/:id',jsonBodyParser, (req,res,next) => {
-        const { id } = req.params
         const { beer, wine, shots, cocktail, seltzer, craft_beer } = req.body
 
         const patchDrink = { beer, wine, shots, cocktail, seltzer, craft_beer}

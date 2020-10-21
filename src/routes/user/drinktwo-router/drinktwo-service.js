@@ -1,8 +1,6 @@
-
-const DrinkService = {
-    async insertDrink(db,drink){
-
-        let value = await db.select('user_id').from('drink').where('user_id',drink.user_id)
+const DrinkTwoService = {
+    async insertDrinkTwo(db,drink){
+        let value = await db.select('user_id').from('drinkTwo').where('user_id',drink.user_id)
         let userId;
 
         if(value.length > 0){
@@ -12,12 +10,14 @@ const DrinkService = {
         }
 
         if(drink.user_id !== userId || drink.user_id == null || drink.user_id == undefined){
+            console.log('add new drink')
             return db
             .insert(drink)
-            .into('drink')
+            .into('drinkTwo')
             .returning('*')
             .then(([drink]) => drink)
         } else {
+            console.log('drink already exists')
             return db
                 .select('*')
                 .from('drink')
@@ -25,22 +25,21 @@ const DrinkService = {
         }
     },
 
-    serializeDrink(drink){
+    serializeDrinkTwo(drink){
         return {
             user_id: drink.user_id,
-            beer: drink.beer,
-            wine: drink.wine,
-            shots: drink.shots,
-            cocktail: drink.cocktail,
-            date: drink.date,
-            seltzer: drink.seltzer,
-            craft_beer: drink.craft_beer,
+            duce: drink.ducer,
+            eight_n_up: drink.eight_n_up,
+            beer_bong: drink.beer_bong,
+            shotgun: drink.shotgun,
+            wine_flight: drink.wine_flight,
+            beer_flight: drink.beer_flight,
         }
     },
-    getUserDrink(db,userId){
+    getUserDrinkTwo(db,userId){
       let result = db
       .select('*')
-      .from ('drink')
+      .from ('drinkTwo')
       .where('user_id',userId)
       .first()
 
@@ -49,8 +48,10 @@ const DrinkService = {
       }
     return result 
     },
-    async patchUserDrink(db,id,userDrink){
-        let result = await db.select('*').from('drink').where('user_id',id)
+    async patchUserDrinkTwo(db,id,userDrink){
+        console.log('patch serivce',id,userDrink)
+
+        let result = await db.select('*').from('drinkTwo').where('user_id',id)
 
         let resultObj = result[0]
         console.log('obj',resultObj)
@@ -66,9 +67,10 @@ const DrinkService = {
                 updateDrink[prop] = (resultObj[prop] + userDrink[prop])
             }
         }
+       console.log('update',updateDrink)
         return await db
         .select('*')
-        .from('drink')
+        .from('drinkTwo')
         .where('user_id',id)
         .update(updateDrink)
     },
@@ -76,4 +78,4 @@ const DrinkService = {
 
 }
 
-module.exports = DrinkService
+module.exports = DrinkTwoService
