@@ -34,14 +34,12 @@ DrinkRouter
 DrinkRouter
     .get('/get/userdrink/:id',jsonBodyParser, async(req,res,next) => {
         const { id } = req.params
-        console.log('drinks params',id)
 
         await DrinkService.getUserDrink(
             req.app.get('db'),
             id
             )
             .then(result => {
-                console.log("result",result)
                 res.json(result)
             })
     })
@@ -69,7 +67,6 @@ DrinkRouter
                console.log('undefinded')
            }
         })
-        console.log('validDrink',validDrink)
 
         DrinkService.patchUserDrink(
             req.app.get('db'),

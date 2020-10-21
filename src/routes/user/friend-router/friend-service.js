@@ -25,7 +25,6 @@ if(value.length > 0){
     if(value.find(requestExists)){
         return {message: 'request already exists'}
     } else {
-        console.log('add the request')
         return db
         .insert(request)
         .into('friend')
@@ -43,7 +42,6 @@ if(value.length > 0){
     async getFriendId(db,email){
         //check if friend exists
         //send back id if friend exists
-        console.log('email',email)
         let value = await db.select('id').from('user').where('email',email)
         let friendId;
 
@@ -74,7 +72,6 @@ if(value.length > 0){
             await db.select('username').from('user').where('id',filtered[i].user_id)
                 .then(pending => names.push([...pending,filtered[i].user_id]))
         }
-        console.log('names',names)
         return names
     }
 
@@ -111,7 +108,6 @@ if(value.length > 0){
     },
     async getFollowing(db,id){
         let friend = await db.select('*').from('friend').where('user_id',id).andWhere({'accepted': true})
-        console.log('friend db',friend)
         let friends = []
         let last = []
         for(let i = 0; i < friend.length; i++){
@@ -119,10 +115,11 @@ if(value.length > 0){
            let drinkTwo = await db.select('*').from('drinkTwo').where('user_id',friend[i].sent_request_to)
            let value = await db.select('*').from('user').join('drink', {'user.id': 'drink.user_id'}).where('id',friend[i].sent_request_to)
 
-            console.log('drinkTwo',drinkTwo)
-           friends.push(value,...drinkTwo)
+           friends.push(value.concat(drinkTwo))
            last.push(...lastEntry)
         }
+        //console.log('FRIENDS',friends)
+
         for(let i = 0; i < last.length; i++){
             if(last[i].user_id === friends[i][0].id){
                 let lastPosted = await last[i].date.toString().slice(0,10)

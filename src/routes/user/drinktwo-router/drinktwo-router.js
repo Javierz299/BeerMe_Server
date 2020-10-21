@@ -7,7 +7,7 @@ const jsonBodyParser = express.json()
 
 DrinkTwoRouter
     .post('/post/userDrinkTwo',jsonBodyParser, (req,res,next) => {
-        console.log("drink post req",req.body)
+        console.log("POST REACHED")
         const { user_id, duce, 
                 eight_n_up, beer_bong, 
                 shotgun, wine_flight, beer_flight } = req.body
@@ -17,7 +17,7 @@ DrinkTwoRouter
             eight_n_up, beer_bong,
             shotgun, wine_flight, beer_flight,
         }
-         console.log('beermeTwo',beerMeTwo)
+         //console.log('beermeTwo',beerMeTwo)
         const drink = DrinkTwoService.insertDrinkTwo(
             req.app.get('db'),
             beerMeTwo
@@ -31,14 +31,14 @@ DrinkTwoRouter
 DrinkTwoRouter
     .get('/get/userDrinkTwo/:id',jsonBodyParser, async(req,res,next) => {
         const { id } = req.params
-        console.log('drinks params',id)
+        console.log('get user drink two',id)
 
         await DrinkTwoService.getUserDrinkTwo(
             req.app.get('db'),
             id
             )
             .then(result => {
-                console.log("result",result)
+                console.log("userdrinktwo result",result)
                 res.json(result)
             })
     })
@@ -60,10 +60,14 @@ DrinkTwoRouter
             let num = ele[1]
            console.log('nums',num)
            if(ele){
-               console.log('num',num)
-            validDrinkTwo[ele[0]] = num
+               if(ele[0] === "duce" && num === 1 || ele[0] === "eight_n_up" && num === 1){
+                console.log('num',num + 1)
+                validDrinkTwo[ele[0]] = num + 1
+               } else {
+                validDrinkTwo[ele[0]] = num
+               }
            } else {
-               console.log('undefinded')
+               console.log('ele undefinded, drinktworouter')
            }
         })
         console.log('validDrinkTwo',validDrinkTwo)

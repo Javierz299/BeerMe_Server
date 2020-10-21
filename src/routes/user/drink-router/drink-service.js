@@ -37,8 +37,8 @@ const DrinkService = {
             craft_beer: drink.craft_beer,
         }
     },
-    getUserDrink(db,userId){
-      let result = db
+    async getUserDrink(db,userId){
+      let result = await db
       .select('*')
       .from ('drink')
       .where('user_id',userId)

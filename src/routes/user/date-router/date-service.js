@@ -15,7 +15,6 @@ const DateService = {
         }
     },
    async getLastEntry(db,userId){
-        console.log('lastservice ',userId)
         let entries =  await db
             .select('date')
             .from('date')
@@ -28,11 +27,7 @@ const DateService = {
             let lastPosted = entries.date.toString().slice(0,10)
             let timeStamp = entries.date.toString().slice(16,24)
             let getTime = entries.date.getTime()
-            console.log('getTime',getTime,Date.now())
-            console.log('lastposted',lastPosted)
-            console.log('timestamp',timeStamp)
-
-
+        
             let dt = lastPosted
                 let t = timeStamp.split(':');
                 let hours = t[0];

@@ -56,7 +56,6 @@ const DrinkTwoService = {
         let resultObj = result[0]
         console.log('obj',resultObj)
     
-
         let updateDrink = {}
        
         for(let prop in userDrink){
