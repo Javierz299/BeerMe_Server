@@ -12,7 +12,7 @@ const GraphService = {
 
         console.log('alluserdata',allUserData)
 
-        return allUserData
+        return await allUserData
     },
 }
 
