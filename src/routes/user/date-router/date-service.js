@@ -23,12 +23,8 @@ const DateService = {
         } 
             let lastPosted = entries.date.toString().slice(0,10)
             let timeStamp = entries.date.toString().slice(16,24)
-            //let getTime = entries.date.getTime()
-            // console.log('getTime',getTime,Date.now())
-            // console.log('lastposted',lastPosted)
-            // console.log('timestamp',timeStamp)
-
-
+            let getTime = entries.date.getTime()
+        
             let dt = lastPosted
                 let t = timeStamp.split(':');
                 let hours = t[0];

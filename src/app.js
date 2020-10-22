@@ -1,11 +1,12 @@
 const express = require('express')
 
 const UserRouter = require('./routes/user/user-router')
-const DrinkRouter = require('../src/routes/user/drink-router')
-const DateRouter = require('./routes/user/date-router')
-const FriendRouter = require('./routes/user/friend-router')
-const GraphRouter = require('./routes/user/graph-route')
-const CheersRouter = require('./routes/user/cheers/cheers-router')
+const DrinkRouter = require('./routes/user/drink-router/drink-router')
+const DrinkTwoRouter = require('./routes/user/drinktwo-router/drinktwo-router')
+const DateRouter = require('./routes/user/date-router/date-router')
+const FriendRouter = require('./routes/user/friend-router/friend-router')
+const GraphRouter = require('./routes/user/graph-router/graph-route')
+const CheersRouter = require('./routes/user/cheers-router/cheers-router')
 
 require('dotenv').config()
 
@@ -25,6 +26,7 @@ app.use(cors())
 
 app.use('/api',UserRouter)
 app.use('/api',DrinkRouter)
+app.use('/api',DrinkTwoRouter)
 app.use('/api',DateRouter)
 app.use('/api',FriendRouter)
 app.use('/api',GraphRouter)

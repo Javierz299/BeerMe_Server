@@ -27,7 +27,7 @@ FriendRouter
 FriendRouter
     .get('/get/friendid/:email',jsonBodyParser, async (req,res,next) => {
         const { email } = req.params
-        //get riends id by checking if they exists by email
+        //get riends id by checking if he exists by email
         await FriendService.getFriendId(
             req.app.get('db'),
             email,

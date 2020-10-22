@@ -106,12 +106,15 @@ if(value.length > 0){
         let friends = []
         let last = []
         for(let i = 0; i < friend.length; i++){
-           let lastEntry = await db.select('*').from('').from('date').where('user_id',friend[i].sent_request_to).orderBy('date', 'desc').limit(1)
+           let lastEntry = await db.select('*').from('date').where('user_id',friend[i].sent_request_to).orderBy('date', 'desc').limit(1)
+           let drinkTwo = await db.select('*').from('drinkTwo').where('user_id',friend[i].sent_request_to)
            let value = await db.select('*').from('user').join('drink', {'user.id': 'drink.user_id'}).where('id',friend[i].sent_request_to)
 
-           friends.push(value)
+           friends.push(value.concat(drinkTwo))
            last.push(...lastEntry)
         }
+        //console.log('FRIENDS',friends)
+
         for(let i = 0; i < last.length; i++){
             if(last[i].user_id === friends[i][0].id){
                 //friends[i][0].date = last[i].date
@@ -129,7 +132,6 @@ if(value.length > 0){
                 friends[i][0].last = timeValue
             }
         }
-     
         return friends
     }, 
 
