@@ -50,10 +50,6 @@ const DrinkService = {
     return result 
     },
     async patchUserDrink(db,id,userDrink){
-<<<<<<< HEAD:src/routes/user/drink-service.js
-
-=======
->>>>>>> version1-copy:src/routes/user/drink-router/drink-service.js
         let result = await db.select('*').from('drink').where('user_id',id)
 
         let resultObj = result[0]
